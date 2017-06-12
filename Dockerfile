@@ -1,19 +1,24 @@
-FROM alpine:3.3
+FROM alpine:3.6
 MAINTAINER Yusuke KUOKA <kuoka@chatwork.com>
 
-ENV DOCKER_VERSION=1.11.1 \
-    DOCKER_COMPOSE_VERSION=1.7.1
+ENV DOCKER_VERSION=17.03.0-ce \
+    DOCKER_COMPOSE_VERSION=1.13.0
 
 # Install Docker, Docker Compose
 RUN apk --update --no-cache \
         add curl device-mapper mkinitfs zsh e2fsprogs e2fsprogs-extra iptables && \
         curl https://get.docker.com/builds/Linux/x86_64/docker-${DOCKER_VERSION}.tgz | tar zx && \
         mv /docker/* /bin/ && chmod +x /bin/docker* \
-    && \
-        apk add py-pip && \
-        pip install docker-compose==${DOCKER_COMPOSE_VERSION}
 
-COPY ./entrykit /bin/entrykit
+        # Install Docker Compose
+        && \
+        apk add py-pip && \
+        pip install docker-compose==${DOCKER_COMPOSE_VERSION} && \
+
+        # Download entrykit
+        cd /bin/ && \
+        curl -L https://github.com/progrium/entrykit/releases/download/v0.4.0/entrykit_0.4.0_Linux_x86_64.tgz | tar zxv
+
 
 RUN chmod +x /bin/entrykit && entrykit --symlink
 
