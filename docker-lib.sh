@@ -51,7 +51,7 @@ start_docker() {
     mount -o remount,rw /proc/sys
   fi
 
-  local server_args="-s btrfs "
+  local server_args="-s overlay "
 
   for registry in $1; do
     server_args="${server_args} --insecure-registry ${registry}"
