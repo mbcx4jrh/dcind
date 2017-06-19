@@ -1,8 +1,9 @@
 FROM alpine:3.6
 MAINTAINER Yusuke KUOKA <kuoka@chatwork.com>
 
-ENV DOCKER_VERSION=17.03.0-ce \
-    DOCKER_COMPOSE_VERSION=1.13.0
+# Use the latest versions of the Docker and Docker-compose
+ENV DOCKER_VERSION=17.05.0-ce \
+    DOCKER_COMPOSE_VERSION=1.14.0-rc2
 
 # Install Docker, Docker Compose
 RUN apk --update --no-cache \
