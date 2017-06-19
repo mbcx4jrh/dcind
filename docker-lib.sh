@@ -51,7 +51,7 @@ start_docker() {
     mount -o remount,rw /proc/sys
   fi
 
-  local server_args=""
+  local server_args="-s devicemapper "
 
   for registry in $1; do
     server_args="${server_args} --insecure-registry ${registry}"
