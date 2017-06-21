@@ -65,6 +65,7 @@ start_docker() {
     server_args="${server_args} -g=$3"
   fi
 
+  server_args="${server_args} --graph=/scratch/docker"
   docker daemon ${server_args} >/tmp/docker.log 2>&1 &
   echo $! > /tmp/docker.pid
 
